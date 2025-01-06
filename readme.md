@@ -4,7 +4,7 @@ Quickly upload files from one computer to another.
 
 <picture>
 	<img src="./screenshotMobile.png" alt="Screen shot of the program on a phone." height="650"/>
-<picture>
+</picture>
 
 
 > [!CAUTION]
