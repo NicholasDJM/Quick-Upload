@@ -6,6 +6,9 @@ import ansis from "ansis";
 import { join } from "node:path";
 import { cwd, platform } from "node:process";
 import { exec } from "node:child_process"
+import { networkInterfaces } from 'node:os';
+
+const port = 3000;
 
 const uploadLocation = "uploads",
 	storage = multer.diskStorage({
@@ -78,7 +81,6 @@ app.use(morgan(function(tokens,req,res){
 			break;
 		case "2":
 			status = ansis.green.bold(status)
-			break;
 	}
 	return [
 		ansis.yellow.bold(tokens.method(req,res)),
@@ -96,12 +98,49 @@ app.post("/", upload.single("file"), (req, res) => {
 			.send(html+`red">Please select a file first.`+html2)
 	} else {
 		res.send(html+`var(--green)">File uploaded!`+html2)
-		if (platform === "win32") exec(`explorer.exe /select,"${join(cwd(),uploadLocation,req.file.filename)}"`,(err,output,input)=>{})
-		
+		const filePath = join(cwd(), uploadLocation, req.file.filename);
+		switch (platform) {
+			case "win32":
+				exec(`explorer.exe /select,"${filePath}"`);
+				break;
+			case "darwin":
+				exec(`open -R "${filePath}"`);
+				break;
+			case "linux":
+				exec(`xdg-open "${join(cwd(), uploadLocation)}"`);
+		}
 	}
 })
 
-app.listen(3000, ()=>{
-	console.info(`Listening on port ${ansis.yellow.bold(3000)}. Linux: Check ifconfig command for local address, Windows: Check ipconfig.`)
+const getLocalIPs = () => {
+	const nets = networkInterfaces();
+	const addresses = [];
+	
+	for (const name of Object.keys(nets)) {
+		for (const net of nets[name]) {
+			// Only get IPv4 addresses, but include internal ones
+			if (net.family === 'IPv4') {
+				addresses.push({
+					name: name,  // interface name (e.g., "Wi-Fi", "Ethernet", "VPN")
+					address: net.address,
+					internal: net.internal
+				});
+			}
+		}
+	}
+	return addresses;
+};
+
+app.listen(port, ()=>{
+	const ips = getLocalIPs();
+	console.info(`Server running at:`);
+	console.info(`- Local:   ${ansis.blue.bold(`http://localhost:${port}`)}`);
+	
+	// Group and display all network interfaces
+	ips.forEach(({name, address, internal}) => {
+		const prefix = internal ? "- Internal" : "- Network";
+		console.info(`${prefix} (${ansis.yellow(name)}): ${ansis.blue.bold(`http://${address}:${port}`)}`);
+	});
+	
 	console.error(ansis.red.bold("DANGER:") + " Do not use expose this program to the internet, there is ZERO security.")
 })

@@ -9,7 +9,7 @@
 	},
 	"type":"module",
 	"scripts": {
-		"start": "node server.js"
+		"start": "npm i&&node server.js"
 	},
 	"bin": "./server.js"
 }
