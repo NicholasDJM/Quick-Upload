@@ -1,4 +1,4 @@
-# Quick Upload ![License AGPL 3.0 or later](https://img.shields.io/github/license/NicholasDJM/Quick%20Upload)
+# Quick Upload ![License AGPL 3.0 or later](https://img.shields.io/github/license/NicholasDJM/Quick-Upload)
 
 Quickly upload files from one computer to another.
 
