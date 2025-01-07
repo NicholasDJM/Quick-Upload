@@ -1,5 +1,6 @@
 {
 	"private": true,
+	"root": true,
 	"license":"AGPL-3.0-or-later",
 	"dependencies": {
 		"ansis":"3.6.0",

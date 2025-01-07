@@ -65,8 +65,8 @@ const uploadLocation = "uploads",
 		<form action="/" method="post" enctype="multipart/form-data">
 			<p style="color:`,
 	html2=`</p>
-			<input type="file" name="file">
-			<button>Upload</button>
+			<label>Select file for upload: <input type="file" name="file"></label>
+			<button type="submit">Upload</button>
 		</form>
 	</body>
 </html>`
