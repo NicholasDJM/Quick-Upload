@@ -15,9 +15,10 @@ const uploadLocation = "uploads",
 		filename: function (req, file, cb) {
 			const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9),
 				filename = file.originalname.split("."),
-				sansExt = [...filename],
 				ext = [...filename].at(-1)
+			let sansExt = [...filename]
 			sansExt.pop()
+			sansExt = sansExt.join(".")
 			console.dir(file)
 			cb(null, sansExt + '-' + uniqueSuffix + "." + ext )
 		}
@@ -56,7 +57,7 @@ const uploadLocation = "uploads",
 				place-content:center center
 			}
 		</style>
-	<head>
+	</head>
 	<body>
 		<form action="/" method="post" enctype="multipart/form-data">
 			<p style="color:`,
