@@ -6,7 +6,7 @@
 		"ansis":"3.6.0",
 		"express":"4.21.2",
 		"morgan":"1.10.0",
-		"multer":"1.4.5-lts.1"
+		"multer":"2.0.1"
 	},
 	"type":"module",
 	"scripts": {
