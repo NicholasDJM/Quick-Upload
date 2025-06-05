@@ -1,2 +1,4 @@
 node_modules
 .vscode
+uploads
+!uploads/Files will be uploaded here.txt

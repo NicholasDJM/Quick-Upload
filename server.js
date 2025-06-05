@@ -59,10 +59,20 @@ const uploadLocation = "uploads",
 				padding:9px;
 				place-content:center center
 			}
+			h1 {
+				display: grid;
+				place-content: center;
+			}
+			p {
+				width: fit-content;
+				margin-inline: auto;
+			}
 		</style>
 	</head>
 	<body>
 		<form action="/" method="post" enctype="multipart/form-data">
+			<h1>Quick Upload</h1>
+			<p><span style="color:red">DANGER:</span> This program is not secure, use it for uploading files across your local network. Do not expose it to the internet.</p>
 			<p style="color:`,
 	html2=`</p>
 			<label>Select file for upload: <br><input type="file" name="file"></label>
@@ -121,7 +131,7 @@ const getLocalIPs = () => {
 			// Only get IPv4 addresses, but include internal ones
 			if (net.family === 'IPv4') {
 				addresses.push({
-					name: name,  // interface name (e.g., "Wi-Fi", "Ethernet", "VPN")
+					name,  // interface name (e.g., "Wi-Fi", "Ethernet", "VPN")
 					address: net.address,
 					internal: net.internal
 				});
@@ -142,5 +152,5 @@ app.listen(port, ()=>{
 		console.info(`${prefix} (${ansis.yellow(name)}): ${ansis.blue.bold(`http://${address}:${port}`)}`);
 	});
 	
-	console.error(ansis.red.bold("DANGER:") + " Do not use expose this program to the internet, there is ZERO security.")
+	console.error(ansis.red.bold("DANGER:") + " Do not use expose this program to the internet, there is " + ansis.red.bold("ZERO") + " security.")
 })
