@@ -16,14 +16,20 @@ const uploadLocation = "uploads",
 			cb(null, uploadLocation+"/")
 		},
 		filename: function (req, file, cb) {
-			const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9),
-				filename = file.originalname.split("."),
-				ext = [...filename].at(-1)
-			let sansExt = [...filename]
-			sansExt.pop()
-			sansExt = sansExt.join(".")
+			const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+			const originalName = file.originalname
+			
+			// Check if the file has an extension
+			const lastDotIndex = originalName.lastIndexOf('.')
+			if (lastDotIndex === -1 || lastDotIndex === 0) {
+				// No extension or starts with a dot (hidden file)
+				cb(null, originalName + '-' + uniqueSuffix)
+			} else {
+				const ext = originalName.slice(lastDotIndex)
+				const sansExt = originalName.slice(0, lastDotIndex)
+				cb(null, sansExt + '-' + uniqueSuffix + ext)
+			}
 			console.dir(file)
-			cb(null, sansExt + '-' + uniqueSuffix + "." + ext )
 		}
 	}),
 	upload = multer({ storage }),
