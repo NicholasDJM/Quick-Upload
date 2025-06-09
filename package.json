@@ -1,16 +1,32 @@
 {
 	"private": true,
 	"root": true,
-	"license":"AGPL-3.0-or-later",
+	"license": "AGPL-3.0-or-later",
+	"packageManager": "npm@11.4.1+sha512.fcee43884166b6f9c5d04535fb95650e9708b6948a1f797eddf40e9778646778a518dfa32651b1c62ff36f4ac42becf177ca46ca27d53f24b539190c8d91802b",
 	"dependencies": {
-		"ansis":"4.1.0",
-		"express":"5.1.0",
-		"morgan":"1.10.0",
-		"multer":"2.0.1"
+		"ansis": "^4.1.0",
+		"express": "^5.1.0",
+		"morgan": "^1.10.0",
+		"multer": "^2.0.1"
 	},
-	"type":"module",
+	"type": "module",
 	"scripts": {
-		"start": "npm i&&node server.js"
+		"start": "npm i&&node server.js",
+		"lint": "eslint server.js&&tsc --project tsconfig.json"
 	},
-	"bin": "./server.js"
+	"bin": "./server.js",
+	"engines": {
+		"node": ">=20.0.0"
+	},
+	"devDependencies": {
+		"@types/express": "^5.0.3",
+		"@types/morgan": "^1.9.10",
+		"@types/multer": "^1.4.13",
+		"@types/node": "^22.15.30",
+		"eslint": "^9.28.0",
+		"eslint-plugin-sonarjs": "^3.0.2",
+		"eslint-plugin-unicorn": "^59.0.1",
+		"globals": "^16.2.0",
+		"typescript": "^5.8.3"
+	}
 }
